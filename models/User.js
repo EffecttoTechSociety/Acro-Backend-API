@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../db");
+
+const sequelize = require("../config/db");
 
 const User = sequelize.define(
   "User",
@@ -9,26 +10,41 @@ const User = sequelize.define(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
+    first_name: {
+      type: DataTypes.STRING(50),
+    },
+    last_name: {
+      type: DataTypes.STRING(50),
+    },
+    gender: {
+      type: DataTypes.ENUM("Male", "Female", "Other"),
+    },
     email: {
       type: DataTypes.STRING,
-      allowNull: true,
+
       unique: true,
+
       validate: {
         isEmail: true,
       },
     },
-    country_code: {
-      type: DataTypes.STRING(10),
-      allowNull: false,
+    password: {
+      type: DataTypes.STRING,
     },
-    phone: {
+
+    contact: {
       type: DataTypes.STRING(20),
-      allowNull: false,
-      unique: true,
+    },
+    is_verified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     verified_at: {
       type: DataTypes.DATE,
       allowNull: true,
+    },
+    country_code: {
+      type: DataTypes.STRING(10),
     },
     lat: {
       type: DataTypes.FLOAT,
